@@ -1,14 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.ProyectoTenis.demo.domain;
 
-/**
- *
- * @author maria
- */
-public class Tenis {
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import java.io.Serializable;
+import lombok.Data;
 
+@Data
+@Entity
+@Table(name = "tenis")
+public class Tenis implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tenis")
+    private Long idTenis;
+
+    @NotNull
+    @Size(max = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
+    private String nombre;
+
+    @Column(name = "precio")
+    private Double precio;
+
+    @Size(max = 100)
+    @Column(name = "marca", length = 100)
+    private String marca;
+
+    @Size(max = 500)
+    @Column(name = "descripcion", length = 500)
+    private String descripcion;
+
+    @Size(max = 255)
+    @Column(name = "imagen", length = 255)
+    private String imagen;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    private Categoria categoria;
 }
